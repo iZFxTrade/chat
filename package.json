@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "chatserver": "^0.0.1",
     "express": "^4.17.1",
     "nodemon": "^2.0.7",
     "socket.io": "^2.3.0"
   },
-  "devDependencies": {},
   "scripts": {
-    "dev":"nodemon index"
+    "dev": "nodemon index"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,4 @@
     "url": "https://github.com/DevStack06/Chat-Server/issues"
   },
   "homepage": "https://github.com/DevStack06/Chat-Server#readme"
-  
 }
