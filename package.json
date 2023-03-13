@@ -10,7 +10,8 @@
     "socket.io": "^2.3.0"
   },
   "scripts": {
-    "dev": "nodemon index"
+    "dev": "nodemon index",
+    "start": "node index"
   },
   "repository": {
     "type": "git",
