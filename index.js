@@ -82,7 +82,7 @@ io.on('connection', (socket) => {
 });
 
 // Add webhook endpoint
-app.post('/webhook/:username', (req, res) => {
+ app.post('/webhook/:username', (req, res) => {
   const { username } = req.params;
   const data = req.body;
   const msg = JSON.stringify(data, null, 2);
@@ -91,12 +91,14 @@ app.post('/webhook/:username', (req, res) => {
   for (const key in data) {
     if (data.hasOwnProperty(key)) { // Kiểm tra xem thuộc tính có phải là của đối tượng hay không
       var k = key;
-      if (key === 'symbol') {
+      if (key === 'symbol' || key === "type") {
         k = "";
       }
       text += `${k}: ${data[key]}\n`; // Thêm cặp giá trị vào chuỗi văn bản, với mỗi giá trị nằm trên một dòng mới
     }
   }
+ 
+  
   console.log('Noi dung Webhook: %s', data);
   io.emit('new message', {
     username,
@@ -106,3 +108,4 @@ app.post('/webhook/:username', (req, res) => {
 
   res.status(200).send(`Webhook received for ${username}  : ${JSON.stringify(data)}`);
 });
+
