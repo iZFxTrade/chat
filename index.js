@@ -6,8 +6,13 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const port = process.env.PORT || 3000;
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 server.listen(port, () => {
   console.log('Server listening at port %d', port);
+
 });
 
 // Routing
@@ -25,7 +30,8 @@ io.on('connection', (socket) => {
     // we tell the client to execute 'new message'
     socket.broadcast.emit('new message', {
       username: socket.username,
-      message: data
+      message: data,
+      
     });
   });
 
@@ -73,4 +79,17 @@ io.on('connection', (socket) => {
       });
     }
   });
+});
+
+// Add webhook endpoint
+app.post('/webhook/:username', (req, res) => {
+  const { username } = req.params;
+  const data = req.body;
+  console.log('Noi dung Webhook: %s', data);
+  io.emit('new message', {
+    username,
+    message: data.message
+  });
+
+  res.status(200).send(`Webhook received for ${username}  : ${JSON.stringify(data)}`);
 });
