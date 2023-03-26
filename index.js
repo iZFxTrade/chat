@@ -85,10 +85,23 @@ io.on('connection', (socket) => {
 app.post('/webhook/:username', (req, res) => {
   const { username } = req.params;
   const data = req.body;
+  const msg = JSON.stringify(data, null, 2);
+  let text = ''; // Khởi tạo chuỗi văn bản trống để lưu trữ các cặp giá trị JSON
+
+  for (const key in data) {
+    if (data.hasOwnProperty(key)) { // Kiểm tra xem thuộc tính có phải là của đối tượng hay không
+      var k = key;
+      if (key === 'symbol') {
+        k = "";
+      }
+      text += `${k}: ${data[key]}\n`; // Thêm cặp giá trị vào chuỗi văn bản, với mỗi giá trị nằm trên một dòng mới
+    }
+  }
   console.log('Noi dung Webhook: %s', data);
   io.emit('new message', {
     username,
-    message: data.message
+    //message: data.message
+    message: text
   });
 
   res.status(200).send(`Webhook received for ${username}  : ${JSON.stringify(data)}`);
