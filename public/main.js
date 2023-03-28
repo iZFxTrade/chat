@@ -24,13 +24,15 @@ $(function() {
   let typing = false;
   let lastTypingTime;
   let $currentInput = $usernameInput.focus();
+  let users = []; // global variable to store the list of users
 
   const addParticipantsMessage = (data) => {
+    users = data.users; // update the global variable
     let message = '';
     if (data.numUsers === 1) {
-      message += `there's 1 participant`;
+      message += `there's 1 participant: ${users[0]}`;
     } else {
-      message += `there are ${data.numUsers} participants`;
+      message += `there are ${data.numUsers} participants: ${users.join(', ')}`;
     }
     log(message);
   }
