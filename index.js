@@ -22,8 +22,7 @@ bot.help((ctx) => {
 // Chat command
 
 bot.command("ask", async (ctx) => {
-  const text = ctx.message.tex
-  t?.replace("/ask", "")?.trim().toLowerCase();
+  const text = ctx.message.text?.replace("/ask", "")?.trim().toLowerCase();
 
   if (text) {
     ctx.sendChatAction("typing");
