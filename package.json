@@ -15,7 +15,6 @@
     "telegraf": "^4.11.2"
   },
   "scripts": {
-    "build": "npm install && npm run build",
     "start": "node index.js"
   }
 }
